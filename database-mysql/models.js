@@ -48,11 +48,19 @@ var selectAllBartendersFromBar = function (barid, callback) {
   });
 };
 
-/*var insertBarIntoDB = function (bar, callback) {
-  
-}*/
+var insertBarIntoDB = function (bar, callback) {
+  connection.query(`INSERT into bars (id, name, address) values ('${bar.id}', '${bar.name}', '${bar.vicinity}')`, function(err, results, field) {
+    if (err) {
+      console.log('errored out from inserting bar into bars table')
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
 
 module.exports.selectThreeBars = selectThreeBars;
 module.exports.selectOneBar = selectOneBar;
 module.exports.selectOneBartender = selectOneBartender;
 module.exports.selectAllBartendersFromBar = selectAllBartendersFromBar;
+module.exports.insertBarIntoDB = insertBarIntoDB;
